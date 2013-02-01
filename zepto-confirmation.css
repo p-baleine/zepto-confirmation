@@ -12,3 +12,15 @@
 #confirmation.hide {
   display: none;
 }
+
+#confirmation .confirmation-title {
+  padding: 10px;
+}
+
+#confirmation .confirmation-message {
+  padding: 10px;
+}
+
+#confirmation .confirmation-action {
+  padding: 10px;
+}
