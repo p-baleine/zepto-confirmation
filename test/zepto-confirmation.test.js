@@ -1,23 +1,33 @@
 
 describe("zepto-confirmation", function() {
-  var confirmation = require("zepto-confirmation"),
+  var confirm = require("zepto-confirmation"),
       Emitter = require("component-emitter"),
       $ = require("p-baleine-zepto");
 
+  beforeEach(function() {
+    this.showSpy = sinon.spy(confirm.Confirmation.prototype, "show");
+  });
+
   afterEach(function() {
     $("#overlay").remove();
+    confirm.Confirmation.prototype.show.restore();
   });
 
   it("should be a function", function() {
-    expect(confirmation).to.be.a(Function);
+    expect(confirm).to.be.a(Function);
   });
 
   it("should export Confirmation constructor", function() {
-    expect(confirmation.Confirmation).to.be.a(Function);
+    expect(confirm.Confirmation).to.be.a(Function);
   });
 
   it("should return an instance of Confirmation", function() {
-    expect(confirmation()).to.be.a(confirmation.Confirmation);
+    expect(confirm()).to.be.a(confirm.Confirmation);
+  });
+
+  it("should call show on confirmation", function() {
+    confirm();
+    expect(this.showSpy.called).to.be.ok();
   });
 
   describe("Confirmation", function() {
@@ -25,9 +35,10 @@ describe("zepto-confirmation", function() {
       this.title = "mytitle";
       this.message = "mymessage";
       this.cb = sinon.spy();
-      this.confirmation = new confirmation.Confirmation(
-        this.title, this.message, this.cb
-      );
+      this.confirmation = new confirm.Confirmation({
+        title: this.title,
+        message: this.message
+      });
     });
 
     afterEach(function() {
@@ -69,12 +80,14 @@ describe("zepto-confirmation", function() {
       });
 
       it("should fire cb on click OK button", function() {
+        this.confirmation.show(this.cb);
         click(this.confirmation.$el.find(".button.ok"));
         expect(this.cb.called).to.be.ok();
       });
 
       it("should emit `ok` on click OK button", function() {
         var spy = sinon.spy();
+        this.confirmation.show();
         this.confirmation.on("ok", spy);
         click(this.confirmation.$el.find(".button.ok"));
         expect(spy.called).to.be.ok();

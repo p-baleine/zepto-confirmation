@@ -9,18 +9,36 @@ var _ = require("underscore"),
     Emitter = require("emitter"),
     overlay = require("zepto-overlay");
 
-exports = module.exports = confirmation;
+exports = module.exports = confirm;
 
-exports.Confirmation = Confirmation;
+confirm.Confirmation = Confirmation;
 
-function confirmation(title, message, fn) {
-  return new Confirmation(title, message, fn);
+/**
+ * Return a new `Confirmation` with the given 
+ * (optional) `title` and `msg`. Either combination
+ * may pass a callback.
+ *
+ * @param {String} title or msg
+ * @param {Function} msg or callback
+ * @param {Function} callback
+ * @return {Confirmation}
+ * @api public
+ */
+
+function confirm(title, message, callback) {
+  if ('string' === typeof message) {
+    return new Confirmation({ title: title, message: message })
+      .show(callback);
+  } else {
+    return new Confirmation({ message: title })
+      .show(message);
+  }
 }
 
-function Confirmation(title, message, fn) {
+function Confirmation(options) {
+  options = _.extend({ title: "", message: "" }, options);
   Emitter.call(this);
-  this.fn = fn;
-  this.$el = $(this.template({ title: title, message: message }));
+  this.$el = $(this.template(options));
   this.overlay = overlay();
   this.ok("ok");
   this.cancel("cancel");
@@ -32,8 +50,9 @@ function Confirmation(title, message, fn) {
 
 inherit(Confirmation, Emitter);
 
-Confirmation.prototype.show = function() {
+Confirmation.prototype.show = function(callback) {
   var win = $(window);
+  this.callback = callback || function() {};
   this.overlay.show();
   this.$el.removeClass("hide");
   this.$el.css({
@@ -46,7 +65,7 @@ Confirmation.prototype.show = function() {
 Confirmation.prototype.template = _.template(require("./template"));
 
 Confirmation.prototype.onok = function() {
-  this.fn();
+  this.callback();
   this.emit("ok");
 };
 
