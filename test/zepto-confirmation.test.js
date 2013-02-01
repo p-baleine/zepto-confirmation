@@ -4,6 +4,10 @@ describe("zepto-confirmation", function() {
       Emitter = require("component-emitter"),
       $ = require("p-baleine-zepto");
 
+  afterEach(function() {
+    $("#overlay").remove();
+  });
+
   it("should be a function", function() {
     expect(confirmation).to.be.a(Function);
   });
@@ -20,15 +24,14 @@ describe("zepto-confirmation", function() {
     beforeEach(function() {
       this.title = "mytitle";
       this.message = "mymessage";
-      this.cb = sinon.spy(function() { console.log("clicked"); });
+      this.cb = sinon.spy();
       this.confirmation = new confirmation.Confirmation(
         this.title, this.message, this.cb
       );
     });
 
     afterEach(function() {
-      $("#confirmation").remove();
-      $("#overlay").remove();
+      this.confirmation.$el.remove();
     });
 
     it("should be an instance of Emitter", function() {
@@ -36,7 +39,7 @@ describe("zepto-confirmation", function() {
     });
 
     it("should attach confirmation element on body", function() {
-      expect($("#confirmation")).to.have.length(1);
+      expect(this.confirmation.$el.closest('html')).to.not.empty();
     });
 
     it("should not display the element on init", function() {
@@ -106,12 +109,12 @@ describe("zepto-confirmation", function() {
     });
 
     describe("#hide()", function() {
-      // it("should hide modal", function(done) {
-      //   this.confirmation.show();
-      //   expect($("#overlay").css("display")).to.equal("block");
-      //   this.confirmation.hide();
-      //   expect($("#overlay").hasClass("hide")).to.be.ok();
-      // });
+      it("should hide modal", function() {
+        this.confirmation.show();
+        expect($("#overlay").css("display")).to.equal("block");
+        this.confirmation.hide();
+        expect($("#overlay").hasClass("hide")).to.be.ok();
+      });
     });
 
     describe("#ok()", function() {
