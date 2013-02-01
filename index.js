@@ -51,15 +51,19 @@ function Confirmation(options) {
 inherit(Confirmation, Emitter);
 
 Confirmation.prototype.show = function(callback) {
-  var win = $(window);
   this.callback = callback || function() {};
   this.overlay.show();
   this.$el.removeClass("hide");
-  this.$el.css({
+  this.$el.css(this.offset());
+  return this;
+};
+
+Confirmation.prototype.offset = function() {
+  var win = $(window);
+  return {
     top: win.height() / 2 - this.$el.height() / 2,
     left: win.width() / 2 - this.$el.width() / 2
-  });
-  return this;
+  };
 };
 
 Confirmation.prototype.template = _.template(require("./template"));
