@@ -1,0 +1,14 @@
+
+#confirmation {
+  display: block;
+  position: fixed;
+  max-width: 600px;
+  min-width: 250px;
+  border: 1px solid #eee;
+  background: white;
+  z-index: 1000;
+}
+
+#confirmation.hide {
+  display: none;
+}

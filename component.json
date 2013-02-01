@@ -1,0 +1,23 @@
+{
+  "name": "zepto-confirmation",
+  "repo": "p-baleine/zepto-confirmation",
+  "description": "Confirmation component based on zepto.",
+  "version": "0.0.1",
+  "keywords": [],
+  "dependencies": {
+    "component/underscore": "*",
+    "component/emitter": "*",
+    "component/inherit": "*",
+    "p-baleine/zepto": "*",
+    "p-baleine/zepto-overlay": "*"
+  },
+  "development": {},
+  "license": "MIT",
+  "scripts": [
+    "index.js",
+    "template.js"
+  ],
+  "styles": [
+    "zepto-confirmation.css"
+  ]
+}

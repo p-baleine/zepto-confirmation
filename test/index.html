@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="../build/build.css" />
+</head>
+<body>
+  <script src="../build/build.js"></script>
+  <script>
+    var confirmation = require("zepto-confirmation");
+    confirmation("Title", "message", function() { alert("ok!!"); })
+        .show();
+  </script>
+</body>
+</html>
