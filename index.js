@@ -40,6 +40,7 @@ Confirmation.prototype.show = function() {
     top: win.height() / 2 - this.$el.height() / 2,
     left: win.width() / 2 - this.$el.width() / 2
   });
+  return this;
 };
 
 Confirmation.prototype.template = _.template(require("./template"));
@@ -58,6 +59,7 @@ Confirmation.prototype.hide = function() {
   this.$el.addClass("hide");
   this.overlay.hide();
   this.emit("hide");
+  return this;
 };
 
 Confirmation.prototype.$ = function(selector) {
@@ -66,8 +68,10 @@ Confirmation.prototype.$ = function(selector) {
 
 Confirmation.prototype.ok = function(text) {
   this.$(".button.ok").text(text);
+  return this;
 };
 
 Confirmation.prototype.cancel = function(text) {
   this.$(".button.cancel").text(text);
+  return this;
 };
