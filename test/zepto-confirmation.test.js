@@ -151,6 +151,15 @@ describe("zepto-confirmation", function() {
         expect(this.confirmation.$el.find(".button.cancel").text()).to.contain("no");
       });
     });
+
+    describe("singleton", function() {
+      it("should display ony one dialog", function() {
+        var first = (new confirm.Confirmation()).show(),
+            second = (new confirm.Confirmation()).show();
+        expect(first.$el.hasClass("hide")).to.be.ok();
+        second.hide();
+      });
+    });
   });
 });
 
