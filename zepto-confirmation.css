@@ -23,4 +23,6 @@
 
 #confirmation .confirmation-action {
   padding: 10px;
+  background: #EEE;
+  text-align: right;
 }
