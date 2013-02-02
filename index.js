@@ -139,6 +139,7 @@ Confirmation.prototype.oncancel = function(e) {
 Confirmation.prototype.hide = function() {
   this.$el.addClass("hide");
   this.overlay.hide();
+  this.$el.remove();
   this.emit("hide");
   this.hiding = true;
   return this;

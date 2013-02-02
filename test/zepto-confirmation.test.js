@@ -97,7 +97,7 @@ describe("zepto-confirmation", function() {
         this.confirmation.show();
         expect(this.confirmation.$el.css("display")).to.equal("block");
         click(this.confirmation.$el.find(".button.cancel"));
-        expect(this.confirmation.$el.css("display")).to.equal("none");
+        expect(this.confirmation.$el.closest('html')).to.empty();
       });
 
       it("should emit `cancel` on click cancel button", function() {
@@ -155,9 +155,9 @@ describe("zepto-confirmation", function() {
     describe("singleton", function() {
       it("should display ony one dialog", function() {
         var first = (new confirm.Confirmation()).show(),
-            second = (new confirm.Confirmation()).show();
+            second = (new confirm.Confirmation({ title: "title", message: "message" })).show();
         expect(first.$el.hasClass("hide")).to.be.ok();
-        second.hide();
+        // second.hide();
       });
     });
   });
