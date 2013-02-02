@@ -194,6 +194,7 @@ Confirmation.prototype.show = function(fn) {
   this.overlay.show();
   this.$el.removeClass("hide");
   this.$el.css(this.offset());
+  this.$(".button.ok").focus();
   return this;
 };
 

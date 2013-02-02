@@ -26,3 +26,8 @@
   background: #EEE;
   text-align: right;
 }
+
+#confirmation .confirmation-action button {
+  padding: 5px;
+  font-size: 1em;
+}
