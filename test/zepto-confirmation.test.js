@@ -93,6 +93,12 @@ describe("zepto-confirmation", function() {
         expect(spy.called).to.be.ok();
       });
 
+      it("should emit `ok` on click OK button", function() {
+        this.confirmation.show();
+        click(this.confirmation.$el.find(".button.ok"));
+        expect(this.confirmation.$el.closest('html')).to.empty();
+      });
+
       it("should hide dialog on click cancel button", function() {
         this.confirmation.show();
         expect(this.confirmation.$el.css("display")).to.equal("block");

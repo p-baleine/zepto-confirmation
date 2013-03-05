@@ -111,6 +111,7 @@ Confirmation.prototype.template = _.template(require("./template"));
 Confirmation.prototype.onok = function(e) {
   e.preventDefault();
   this.callback();
+  this.hide();
   this.emit("ok");
 };
 
